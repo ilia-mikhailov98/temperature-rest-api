@@ -11,6 +11,7 @@ public class SensorsService {
     @Autowired
     SensorsRepository sensorsRepository;
 
+	@Transactional
     public void registerSensor(Sensor sensor) {
         sensorsRepository.save(sensor);
     }
