@@ -31,10 +31,12 @@ public class MeasurementsService {
         measurementsRepository.save(measurement);
     }
 
+	@Transactional(readOnly = true)
     public List<Measurement> findAll() {
         return measurementsRepository.findAll();
     }
 
+	@Transactional
     public int countRainyDays() {
         List<Measurement> measurements = measurementsRepository.findAll();
 
