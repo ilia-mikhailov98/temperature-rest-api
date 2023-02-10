@@ -20,10 +20,10 @@ public class MeasurementDTO {
     @Max(value = 100, message = "Value should not be greater than 100")
     private Double value;
 
-    @NotNull
+    @NotNull(message = "'Raining' should not be null")
     private Boolean raining;
 
-    @NotNull(message = "Sensor should not be null")
+    @NotNull(message = "'Sensor' should not be null")
     private SensorDTO sensor;
 
 }
