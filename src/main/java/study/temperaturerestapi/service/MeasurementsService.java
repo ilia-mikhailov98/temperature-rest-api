@@ -16,11 +16,14 @@ import java.util.stream.Collectors;
 @Service
 public class MeasurementsService {
 
-    @Autowired
-    private MeasurementsRepository measurementsRepository;
+    private final MeasurementsRepository measurementsRepository;
+    private final SensorsRepository sensorsRepository;
 
     @Autowired
-    private SensorsRepository sensorsRepository;
+    public MeasurementsService(MeasurementsRepository measurementsRepository, SensorsRepository sensorsRepository) {
+        this.measurementsRepository = measurementsRepository;
+        this.sensorsRepository = sensorsRepository;
+    }
 
     @Transactional
     public void addMeasurement(Measurement measurement) {

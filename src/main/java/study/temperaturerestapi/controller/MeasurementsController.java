@@ -22,15 +22,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/measurements")
 public class MeasurementsController {
 
-    @Autowired
-    private MeasurementsService measurementsService;
+    private final MeasurementValidator validator;
+    private final MeasurementsService measurementsService;
 
     @Autowired
-    private MeasurementValidator measurementValidator;
+    public MeasurementsController(MeasurementValidator validator, MeasurementsService measurementsService) {
+        this.validator = validator;
+        this.measurementsService = measurementsService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> addMeasurement(@RequestBody @Valid MeasurementDTO measurementDTO, BindingResult bindingResult) {
-        measurementValidator.validate(measurementDTO, bindingResult);
+        validator.validate(measurementDTO, bindingResult);
 
         if (bindingResult.hasErrors()) {
             String message = bindingResult.getFieldErrors()

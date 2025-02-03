@@ -9,10 +9,14 @@ import study.temperaturerestapi.repository.SensorsRepository;
 @Service
 public class SensorsService {
 
-    @Autowired
-    SensorsRepository sensorsRepository;
+    private final SensorsRepository sensorsRepository;
 
-	@Transactional
+    @Autowired
+    public SensorsService(SensorsRepository sensorsRepository) {
+        this.sensorsRepository = sensorsRepository;
+    }
+
+    @Transactional
     public void registerSensor(Sensor sensor) {
         sensorsRepository.save(sensor);
     }

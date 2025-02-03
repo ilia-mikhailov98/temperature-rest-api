@@ -22,15 +22,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/sensors")
 public class SensorsController {
 
-    @Autowired
-    private SensorsService sensorsService;
+    private final SensorValidator validator;
+    private final SensorsService sensorsService;
 
     @Autowired
-    private SensorValidator sensorValidator;
+    public SensorsController(SensorValidator validator, SensorsService sensorsService) {
+        this.validator = validator;
+        this.sensorsService = sensorsService;
+    }
 
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> registerSensor(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
-        sensorValidator.validate(sensorDTO, bindingResult);
+        validator.validate(sensorDTO, bindingResult);
 
         if (bindingResult.hasErrors()) {
             String message = bindingResult.getFieldErrors()
@@ -47,18 +50,8 @@ public class SensorsController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<SensorErrorResponse> handleException(SensorAlreadyRegisteredException exception) {
-        SensorErrorResponse response = new SensorErrorResponse();
-
-        response.setMessage(exception.getMessage());
-        response.setTimestamp(System.currentTimeMillis());
-
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<SensorErrorResponse> handleException(InvalidSensorBodyException exception) {
+    @ExceptionHandler({SensorAlreadyRegisteredException.class, InvalidSensorBodyException.class})
+    private ResponseEntity<SensorErrorResponse> handleException(RuntimeException exception) {
         SensorErrorResponse response = new SensorErrorResponse();
 
         response.setMessage(exception.getMessage());
