@@ -32,7 +32,8 @@ public class MeasurementsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> addMeasurement(@RequestBody @Valid MeasurementDTO measurementDTO, BindingResult bindingResult) {
+    @ResponseStatus(HttpStatus.OK)
+    public void addMeasurement(@RequestBody @Valid MeasurementDTO measurementDTO, BindingResult bindingResult) {
         validator.validate(measurementDTO, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -46,8 +47,6 @@ public class MeasurementsController {
 
         Measurement measurement = MeasurementMapper.fromDTO(measurementDTO);
         measurementsService.addMeasurement(measurement);
-
-        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping

@@ -11,8 +11,12 @@ import study.temperaturerestapi.repository.SensorsRepository;
 @Component
 public class MeasurementValidator implements Validator {
 
+    private final SensorsRepository sensorsRepository;
+
     @Autowired
-    private SensorsRepository sensorsRepository;
+    public MeasurementValidator(SensorsRepository sensorsRepository) {
+        this.sensorsRepository = sensorsRepository;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {

@@ -44,6 +44,7 @@ public class MeasurementsService {
         List<Measurement> measurements = measurementsRepository.findAll();
 
         return measurements.stream()
+                .filter(Measurement::getRaining)
                 .map(Measurement::getDate)
                 .map(LocalDateTime::getDayOfYear)
                 .collect(Collectors.toSet())

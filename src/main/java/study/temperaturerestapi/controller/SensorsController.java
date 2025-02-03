@@ -32,7 +32,8 @@ public class SensorsController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<HttpStatus> registerSensor(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
+    @ResponseStatus(HttpStatus.OK)
+    public void registerSensor(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
         validator.validate(sensorDTO, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -46,8 +47,6 @@ public class SensorsController {
 
         Sensor sensor = SensorMapper.fromDTO(sensorDTO);
         sensorsService.registerSensor(sensor);
-
-        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @ExceptionHandler({SensorAlreadyRegisteredException.class, InvalidSensorBodyException.class})
