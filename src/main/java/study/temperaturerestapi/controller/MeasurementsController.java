@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/measurements")
-public class MeasurementsController {
+public class MeasurementsController { // TODO: add test
 
     private final MeasurementValidator validator;
     private final MeasurementsService measurementsService;
