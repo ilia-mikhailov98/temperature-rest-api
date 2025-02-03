@@ -1,3 +1,5 @@
+-- TODO: instead of copy-paste start using liquibase
+
 CREATE TABLE IF NOT EXISTS sensor (
     id INT PRIMARY KEY,
     name VARCHAR(30) NOT NULL CHECK (LENGTH(name) >= 3 AND LENGTH(name) <= 30)
