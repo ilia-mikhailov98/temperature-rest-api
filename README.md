@@ -17,9 +17,9 @@
    git clone https://github.com/ilia-mikhailov98/temperature-rest-api.git
    cd temperature-rest-api
    ```
-3. Настройте подключение к базе данных в файле `docker-compose.yml`.
+2. Настройте подключение к базе данных в файле `docker-compose.yml`.
 
-5. Запустите приложение:
+3. Запустите приложение:
 
    ```bash
    docker-compose up --build
